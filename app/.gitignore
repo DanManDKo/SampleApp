@@ -1,0 +1,36 @@
+# Android Studio
+.idea/
+*.iml
+
+# Build directories
+/build/
+*/build/
+
+# Gradle files
+.gradle/
+gradle-app.setting
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# User-specific files
+local.properties
+
+# Android specific files
+*.apk
+*.ap_ 
+*.dex
+*.class
+*.jar
+*.aar
+*.keystore
+*.jks
+
+# Log files
+*.log
+
+# Android Studio Navigation editor files
+.nav/
+
+# OS specific files
+.DS_Store
+Thumbs.db
