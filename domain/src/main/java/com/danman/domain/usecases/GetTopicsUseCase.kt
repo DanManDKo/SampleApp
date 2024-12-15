@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetTopicsUseCase @Inject constructor(private val topicsRepo: TopicsRepo) {
 
-    operator fun invoke(): List<Topic> {
-        return emptyList()
+    suspend operator fun invoke(): List<Topic> {
+        return topicsRepo.getTopics()
     }
 }

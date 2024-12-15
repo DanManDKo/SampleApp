@@ -1,5 +1,6 @@
 package com.danman.sample.di
 
+import com.danman.data.datastore.remote.TopicRemoteDataSource
 import com.danman.data.repo.TopicsRepoImpl
 import com.danman.domain.repo.TopicsRepo
 import dagger.Module
@@ -10,9 +11,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+object RepoModule {
 
     @Provides
     @Singleton
-    fun provideTopicsRepo(): TopicsRepo = TopicsRepoImpl()
+    fun provideTopicsRepo(topicsRemoteDataSource: TopicRemoteDataSource): TopicsRepo =
+        TopicsRepoImpl(topicsRemoteDataSource)
 }
