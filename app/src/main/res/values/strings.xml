@@ -2,4 +2,6 @@
     <string name="app_name">SampleApp</string>
     <string name="btn_reload">Reload</string>
     <string name="title_something_went_wrong">Something went wrong</string>
+    <string name="title_empty_result">No results have been found :(</string>
+    <string name="title_search">Search…</string>
 </resources>

@@ -13,14 +13,14 @@ import androidx.compose.ui.unit.dp
 import com.danman.domain.model.Topic
 
 @Composable
-fun TopicsScreen(modifier: Modifier, topics: List<Topic>) {
-    TopicsList(modifier = modifier, topics)
+fun TopicsScreen(topics: List<Topic>) {
+    TopicsList(topics)
 }
 
 
 @Composable
-fun TopicsList(modifier: Modifier, topics: List<Topic>) {
-    LazyColumn(modifier = modifier) {
+fun TopicsList(topics: List<Topic>) {
+    LazyColumn {
         items(topics.size) {
             TopicItem(topics[it])
         }

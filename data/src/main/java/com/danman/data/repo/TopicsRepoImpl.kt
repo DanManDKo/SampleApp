@@ -8,7 +8,7 @@ import javax.inject.Inject
 class TopicsRepoImpl @Inject constructor(private val topicsRepoDataSource: TopicRemoteDataSource) :
     TopicsRepo {
 //        TODO: add a database
-    override suspend fun getTopics(): List<Topic> {
-        return topicsRepoDataSource.getTopics()
+    override suspend fun getTopics(query: String): List<Topic> {
+        return topicsRepoDataSource.getTopics(query)
     }
 }

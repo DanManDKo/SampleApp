@@ -31,22 +31,26 @@ fun TopicsRout(modifier: Modifier) {
     val vm: TopicsViewModel = hiltViewModel()
     val contentState = vm.contentState.collectAsState(ContentState.Loading)
     val value = contentState.value
-    when (value) {
-        is ContentState.Content<*> -> {
-            TopicsScreen(
-                modifier = modifier,
-                topics = value.data as List<Topic>
-            )
-        }
-
-        is ContentState.Error -> {
-            TopicsError {
-                vm.onReloadClicked()
+    val searchQuery = vm.queryState.collectAsState().value
+    Column {
+        SearchField(
+            modifier = modifier,
+            query = searchQuery,
+            onQueryChanged = {
+                vm.submitQuery(it)
+            }, onClear = {
+                vm.clearQuery()
+            })
+        when (value) {
+            is ContentState.Content<*> -> {
+                TopicsScreen(
+                    topics = value.data as List<Topic>
+                )
             }
-        }
 
-        is ContentState.Loading -> {
-            Loading()
+            is ContentState.Error -> TopicsError { vm.onReloadClicked() }
+            is ContentState.Loading -> Loading()
+            is ContentState.Empty -> Empty()
         }
     }
 }
@@ -79,5 +83,18 @@ private fun Loading() {
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun Empty() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = stringResource(id = R.string.title_empty_result),
+            style = MaterialTheme.typography.titleLarge
+        )
     }
 }

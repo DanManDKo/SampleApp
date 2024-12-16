@@ -20,8 +20,8 @@ class TopicsRemoteDataSourceImpl @Inject constructor(
     private val statusCodes = listOf(200, 201, 202, 304, 400)
     private val statusCodesForDetails = listOf(304, 200, 400)
 
-    override suspend fun getTopics(): List<Topic> {
-        val topics = getTopicsSimple()
+    override suspend fun getTopics(query: String): List<Topic> {
+        val topics = getTopicsSimple(query)
         return supervisorScope {
             val deffs = topics.map { topic ->
                 async {
@@ -36,13 +36,13 @@ class TopicsRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    private suspend fun getTopicsSimple(): List<TopicJson> {
+    private suspend fun getTopicsSimple(query: String): List<TopicJson> {
         val statusCode = statusCodes.random()
         if (statusCode >= 400) {
             throw IllegalStateException("Did not manage to get topics")
         }
         delay(1000)
-        return getTopicsListStubs()
+        return getTopicsListStubs(query)
     }
 
     private suspend fun getTopicDetails(id: String): TopicDetailsJson? {
@@ -55,17 +55,17 @@ class TopicsRemoteDataSourceImpl @Inject constructor(
     }
 
 
-    private fun getTopicsListStubs(): List<TopicJson> {
+    private fun getTopicsListStubs(query: String): List<TopicJson> {
         val topics = mutableListOf<TopicJson>()
         repeat(10) { i ->
             topics.add(
                 TopicJson(
                     id = "id $i",
-                    title = "Tittle $i ${loremIpsumProvider.getText(Random.nextInt(2,8))}"
+                    title = "Tittle $i ${loremIpsumProvider.getText(Random.nextInt(2, 8))}"
                 )
             )
         }
-        return topics
+        return topics.filter { it.title?.contains(query, true) != false }
     }
 
     private fun getDetailedStub(id: String): TopicDetailsJson {
