@@ -26,7 +26,11 @@ fun TopicsList(modifier: Modifier, topics: List<Topic>) {
 fun TopicItem(topic: Topic) {
     Column {
         Text(topic.title)
-        Text(topic.description)
-        Text(topic.createdAt.getFormattedValue())
+        topic.description?.let {
+            Text(it)
+        }
+        topic.createdAt?.getFormattedValue()?.let {
+            Text(it)
+        }
     }
 }

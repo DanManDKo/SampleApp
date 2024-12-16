@@ -5,6 +5,6 @@ import com.danman.domain.model.value.CreatedAt
 data class Topic(
     val id: String,
     val title: String,
-    val description: String,
-    val createdAt: CreatedAt
+    val description: String?,
+    val createdAt: CreatedAt?
 )

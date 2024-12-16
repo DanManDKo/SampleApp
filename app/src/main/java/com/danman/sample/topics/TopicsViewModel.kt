@@ -1,5 +1,6 @@
 package com.danman.sample.topics
 
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import com.danman.domain.model.Topic
 import com.danman.domain.usecases.GetTopicsUseCase
 import com.danman.sample.base.BaseViewModel
