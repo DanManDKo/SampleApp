@@ -18,7 +18,6 @@ class TopicsRemoteDataSourceImpl @Inject constructor(
 ) : TopicRemoteDataSource {
 
     private val statusCodes = listOf(200, 201, 202, 304, 400)
-//    private val statusCodes = listOf( 400)
     private val statusCodesForDetails = listOf(304, 200, 400)
 
     override suspend fun getTopics(): List<Topic> {
@@ -62,7 +61,7 @@ class TopicsRemoteDataSourceImpl @Inject constructor(
             topics.add(
                 TopicJson(
                     id = "id $i",
-                    title = "Tittle $i ${loremIpsumProvider.getText(4)}"
+                    title = "Tittle $i ${loremIpsumProvider.getText(Random.nextInt(2,8))}"
                 )
             )
         }
@@ -77,7 +76,7 @@ class TopicsRemoteDataSourceImpl @Inject constructor(
         return TopicDetailsJson(
             id = id,
             publishedAt = System.currentTimeMillis(),
-            description = "Description $id   ${loremIpsumProvider.getText(50)}"
+            description = "Description $id   ${loremIpsumProvider.getText(Random.nextInt(30, 100))}"
         )
     }
 }
