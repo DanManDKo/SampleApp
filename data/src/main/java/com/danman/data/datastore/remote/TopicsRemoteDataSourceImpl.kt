@@ -15,10 +15,10 @@ import kotlin.random.Random
 class TopicsRemoteDataSourceImpl @Inject constructor(
     private val topicsMapper: TopicsMapper,
     private val loremIpsumProvider: LoremIpsumProvider
-) :
-    TopicRemoteDataSource {
+) : TopicRemoteDataSource {
 
     private val statusCodes = listOf(200, 201, 202, 304, 400)
+//    private val statusCodes = listOf( 400)
     private val statusCodesForDetails = listOf(304, 200, 400)
 
     override suspend fun getTopics(): List<Topic> {

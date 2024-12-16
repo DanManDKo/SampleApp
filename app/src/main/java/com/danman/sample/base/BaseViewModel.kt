@@ -5,19 +5,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 open class BaseViewModel : ViewModel() {
 
-    private val _errorFlow = MutableSharedFlow<Throwable>()
-    val errorFlow = _errorFlow.asSharedFlow()
+    protected val _contentState = MutableStateFlow<ContentState>(ContentState.Loading)
+    val contentState = _contentState.asStateFlow()
 
     protected val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         Log.e("BaseViewModel", "Caught an exception: $exception")
         viewModelScope.launch {
-            _errorFlow.emit(exception)
+            _contentState.emit(ContentState.Error(exception))
         }
     }
 
